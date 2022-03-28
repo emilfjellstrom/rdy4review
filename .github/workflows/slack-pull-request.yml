@@ -1,5 +1,5 @@
 name: Ready for review
-on: push
+on: pull_request
 jobs:
 
   Comment-on-PR:
