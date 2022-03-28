@@ -11,7 +11,7 @@ jobs:
           with:
             issue-number: ${{ github.event.pull_request.number }}
             body: |
-              This comment was written by a bot!
+              This comment was written by a bot!!
 
   Post-slack-message:
     runs-on: ubuntu-latest
