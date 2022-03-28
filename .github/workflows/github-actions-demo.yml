@@ -1,17 +1,20 @@
-name: GitHub Actions Demo
-on: [push]
+name: Ready for review
+on:
+  pull_request:
+    types:
+      - opened
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: echo "Notifying your peers that this amazing masterpiece 🖼 is ready for review 🔎"
+      - name: Post PR to Slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # Slack channel ID where message will be posted. Needed if using bot token
+          channel-id: C0392J6GES0
+          # Message to post into Slack. Needed if using bot token
+          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+          # JSON payload to send to Slack if webhook route. If not supplied, json from GitHub event will be sent instead
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
