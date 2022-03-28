@@ -7,24 +7,23 @@ jobs:
       steps:
         - run: echo "Creating a comment on the PR"
         - name: Create comment
-          run: echo "PR number = ${{ github.event.number }}"
-#          uses: peter-evans/create-or-update-comment@v2
-#         with:
-#            issue-number: 1
-#            body: |
-#              This comment was written by a bot!
+          uses: peter-evans/create-or-update-comment@v2
+          with:
+            issue-number: ${{ github.event.pull_request.number }}
+            body: |
+              This comment was written by a bot!
 
-#  Post-slack-message:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - run: echo "Notifying your peers that this amazing masterpiece 🖼 is ready for review 🔎"
-#      - name: Post PR to Slack
-#        uses: slackapi/slack-github-action@v1.18.0
-#        with:
-#          # Slack channel ID where message will be posted. Needed if using bot token
-#          channel-id: C0392J6GES0
-#          # Message to post into Slack. Needed if using bot token
-#          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-#          # JSON payload to send to Slack if webhook route. If not supplied, json from GitHub event will be sent instead
-#        env:
-#          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  Post-slack-message:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Notifying your peers that this amazing masterpiece 🖼 is ready for review 🔎"
+      - name: Post PR to Slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # Slack channel ID where message will be posted. Needed if using bot token
+          channel-id: C0392J6GES0
+          # Message to post into Slack. Needed if using bot token
+          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+          # JSON payload to send to Slack if webhook route. If not supplied, json from GitHub event will be sent instead
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
