@@ -7,7 +7,7 @@ jobs:
       steps:
         - run: echo "Creating a comment on the PR"
         - name: Create comment
-          run: echo "PR number = ${{ github.base_ref }}"
+          run: echo "PR number = ${{ github.event }}"
 #          uses: peter-evans/create-or-update-comment@v2
 #         with:
 #            issue-number: 1
