@@ -1,2 +1,2 @@
-# rdy4review
+# Readt for review
 Github Action for pull requests ready for review to push notifications in Slack
