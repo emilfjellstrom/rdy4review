@@ -1,8 +1,8 @@
 name: Check comment status
 on:
   issue_comment:
-    types: [edited]
-    
+    types: [created, edited]
+
     jobs:
       Check-Comments:
         runs-on: ubuntu-latest
@@ -10,6 +10,4 @@ on:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: This comment was written by a bot!
+          body-includes: Hello
